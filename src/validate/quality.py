@@ -1,13 +1,18 @@
+<<<<<<< HEAD
 import pandas as pd
 from src.load.postgres import get_db_connection
 
 
 def validate_curated(df: pd.DataFrame) -> list[str]:
+=======
+def validate_curated(df) -> list[str]:
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
     """Return a list of human-readable validation errors.
 
     Minimum checks: order_id uniqueness/non-null, quantity range,
     nonnegative amounts, allowed statuses, required audit fields.
     """
+<<<<<<< HEAD
     errors = []
     if df.empty:
         return ["DataFrame is empty"]
@@ -59,3 +64,6 @@ def run_quality_checks() -> list[str]:
     else:
         print("All quality validation checks passed successfully!")
     return errors
+=======
+    raise NotImplementedError('Implement data validation')
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from contextlib import contextmanager
 import psycopg
 import pandas as pd
@@ -46,12 +47,15 @@ def get_db_connection():
         conn.close()
 
 
+=======
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
 def upsert_curated(df, run_id: str) -> int:
     """Load curated.sales_order_lines using rerun-safe UPSERT semantics.
 
     Requirement: order_id is the conflict key. A rerun with unchanged records
     must not create duplicate business keys.
     """
+<<<<<<< HEAD
     if df.empty:
         return 0
 
@@ -112,10 +116,14 @@ def upsert_curated(df, run_id: str) -> int:
             cursor.executemany(upsert_query, data_tuples)
 
     return len(data_tuples)
+=======
+    raise NotImplementedError('Implement Goal 2 PostgreSQL UPSERT')
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
 
 
 def load_partition(df, year: int, month: int, run_id: str) -> int:
     """Load only a selected year/month partition and record audit.partition_loads."""
+<<<<<<< HEAD
     if df.empty:
         return 0
 
@@ -149,3 +157,6 @@ def load_partition(df, year: int, month: int, run_id: str) -> int:
             cursor.execute(audit_query, (run_id, year, month, rows_loaded))
 
     return rows_loaded
+=======
+    raise NotImplementedError('Implement Goal 3 selected-partition load')
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3

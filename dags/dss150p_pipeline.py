@@ -6,7 +6,12 @@ from airflow.operators.bash import BashOperator
 PROJECT = '/opt/airflow/project'
 
 def failure_callback(context):
+<<<<<<< HEAD
     print(f"TASK FAILED: {context['task_instance'].task_id} in DAG: {context['dag'].dag_id}")
+=======
+    # TODO Goal 4: write a concise failure record or print meaningful context.
+    print('TASK FAILED:', context['task_instance'].task_id)
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
 
 DEFAULT_ARGS = {
     'owner': 'dss150p',
@@ -26,6 +31,7 @@ with DAG(
         'year': Param(2026, type='integer'),
         'month': Param(1, type='integer', minimum=1, maximum=12),
     },
+<<<<<<< HEAD
     tags=['DSS150P', 'Medallion'],
 ) as dag:
 
@@ -37,24 +43,44 @@ with DAG(
         else f'cd {PROJECT} && PIPELINE_RUN_ID="{{{{ run_id }}}}" python -m src.cli load'
     )
 
+=======
+    tags=['DSS150P'],
+) as dag:
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
     extract = BashOperator(
         task_id='extract',
         bash_command=f'cd {PROJECT} && PIPELINE_RUN_ID="{{{{ run_id }}}}" python -m src.cli extract',
     )
+<<<<<<< HEAD
     
+=======
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
     transform = BashOperator(
         task_id='transform',
         bash_command=f'cd {PROJECT} && PIPELINE_RUN_ID="{{{{ run_id }}}}" python -m src.cli transform',
     )
+<<<<<<< HEAD
     
     load = BashOperator(
         task_id='load',
         bash_command=load_command,
     )
     
+=======
+    load = BashOperator(
+        task_id='load',
+        bash_command=f'cd {PROJECT} && PIPELINE_RUN_ID="{{{{ run_id }}}}" python -m src.cli load',
+    )
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
     validate = BashOperator(
         task_id='validate',
         bash_command=f'cd {PROJECT} && PIPELINE_RUN_ID="{{{{ run_id }}}}" python -m src.cli validate',
     )
 
+<<<<<<< HEAD
     extract >> transform >> load >> validate
+=======
+    # TODO Goal 4: confirm dependencies, timeouts, parameter usage,
+    # and a deliberate failure/recovery experiment.
+    extract >> transform >> load >> validate
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3

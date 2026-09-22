@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from datetime import datetime, timezone
 import hashlib
 import pandas as pd
@@ -9,6 +10,8 @@ def compute_record_hash(row: pd.Series) -> str:
     return hashlib.sha256(key_string.encode('utf-8')).hexdigest()
 
 
+=======
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
 def build_curated(staging: dict, run_id: str):
     """Join staging orders/customers/products and create analysis-ready sales rows.
 
@@ -17,6 +20,7 @@ def build_curated(staging: dict, run_id: str):
 
     Orphan customer/product references must be quarantined, not silently dropped.
     """
+<<<<<<< HEAD
     orders_df = staging['orders'].copy()
     customers_df = staging['customers'].copy()
     products_df = staging['products'].copy()
@@ -56,3 +60,6 @@ def build_curated(staging: dict, run_id: str):
     merged_df['record_hash'] = merged_df.apply(compute_record_hash, axis=1)
 
     return merged_df, orphans_df
+=======
+    raise NotImplementedError('Implement Goal 2 curated transformation')
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3

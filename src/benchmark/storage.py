@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import os
 import time
 import statistics
@@ -25,6 +26,9 @@ def write_partitioned_parquet(df: pd.DataFrame, output_dir: str):
 
 
 def run_benchmark(curated_path: str = None, output_dir: str = "data/benchmark", repeats: int = 5):
+=======
+def run_benchmark(curated_path, output_dir, repeats: int = 5):
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
     """Compare the same logical dataset in CSV, JSON Lines, Parquet, and PostgreSQL.
 
     Capture:
@@ -36,6 +40,7 @@ def run_benchmark(curated_path: str = None, output_dir: str = "data/benchmark", 
 
     Use multiple repetitions and report a median for read/query timing.
     """
+<<<<<<< HEAD
     os.makedirs(output_dir, str(True) if isinstance(output_dir, str) else None)
     out_dir = Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -178,3 +183,11 @@ def run_benchmark(curated_path: str = None, output_dir: str = "data/benchmark", 
 def run_benchmarks(repeats: int = 5):
     """Wrapper expected by CLI to execute storage benchmarks."""
     return run_benchmark(repeats=repeats)
+=======
+    raise NotImplementedError('Implement Week 6 storage benchmark')
+
+
+def write_partitioned_parquet(df, output_dir):
+    """Write Parquet partitioned by order_year/order_month."""
+    raise NotImplementedError('Implement Week 6 partitioning')
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3

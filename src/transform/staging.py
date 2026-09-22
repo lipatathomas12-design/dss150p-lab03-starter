@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from datetime import datetime, timezone
 from pathlib import Path
 import json
@@ -6,6 +7,12 @@ from src.config import SETTINGS
 
 
 def build_staging(raw_dir: Path, run_id: str):
+=======
+import pandas as pd
+
+
+def build_staging(raw_dir, run_id: str):
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
     """Create cleaned, typed staging datasets.
 
     Required rules:
@@ -18,6 +25,7 @@ def build_staging(raw_dir: Path, run_id: str):
 
     Return a dict of staging DataFrames and a quarantine DataFrame.
     """
+<<<<<<< HEAD
     raw_path = Path(raw_dir)
     
     # 1. Read Raw Files
@@ -96,3 +104,6 @@ def build_staging(raw_dir: Path, run_id: str):
     }
 
     return staged_dict, quarantine_df
+=======
+    raise NotImplementedError('Implement Goal 2 staging transformations')
+>>>>>>> 3f0efc07ae7acc17ace3e298eb2ebf5ce91eb6e3
