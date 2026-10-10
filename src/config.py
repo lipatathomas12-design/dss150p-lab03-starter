@@ -1,21 +1,13 @@
-from pathlib import Path
 import os
-import yaml
-from dotenv import load_dotenv
+from dotenv import load5_dotenv # or standard dotenv
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-load_dotenv(PROJECT_ROOT / '.env')
+load_dotenv()
 
-with (PROJECT_ROOT / 'config' / 'settings.yml').open(encoding='utf-8') as f:
-    SETTINGS = yaml.safe_load(f)
+# Fallback to localhost if running locally, default to 'postgres' for docker
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
+POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
+POSTGRES_DB = os.getenv("POSTGRES_DB", "airflow")
+POSTGRES_USER = os.getenv("POSTGRES_USER", "airflow")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "changeme")
 
-DB = {
-    'host': os.getenv('POSTGRES_HOST', 'localhost'),
-    'port': int(os.getenv('POSTGRES_PORT', '5432')),
-    'dbname': os.getenv('POSTGRES_DB', 'dss150p'),
-    'user': os.getenv('POSTGRES_USER', 'dss150p'),
-    'password': os.getenv('POSTGRES_PASSWORD', 'change_me'),
-}
-
-def path_for(key: str) -> Path:
-    return PROJECT_ROOT / SETTINGS['pipeline'][key]
+DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
