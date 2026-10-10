@@ -1,24 +1,21 @@
-# DSS150P Laboratory 3 Starter Repository
+# DSS150P Laboratory 3: Productionizing a Modular Data Pipeline
 
 This repository supports Module 2: Pipeline Construction, Storage, and Orchestration.
-It is intentionally incomplete. Students must implement the marked TODOs and document their decisions.
 
-## Main progression
-- Goal 1: reproducible environment, modularization, Git, Docker, configuration
-- Goal 2: raw -> staging -> curated transformations; audit/error handling; rerun-safe loading
-- Goal 3: CSV/JSON/Parquet/PostgreSQL comparison; partitioning; selected-partition load
-- Goal 4: Apache Airflow DAG for extract -> transform -> load -> validate
+## Main Progression
+- **Goal 1:** Reproducible environment, modularization, Git, Docker, and externalized configuration
+- **Goal 2:** Raw -> Staging -> Curated transformations; audit logging, error handling, and rerun-safe PostgreSQL loading
+- **Goal 3:** CSV, JSON Lines, Parquet, and PostgreSQL comparison; partitioning; selected-partition loading
+- **Goal 4:** Apache Airflow orchestration DAG for extract -> transform -> load -> validate
 
-Start with `DSS150P_Laboratory_Activity_3.pdf`.
+---
 
 ## Required Execution Commands
 
 ### Goal 1: Environment & Docker Setup
-```bash
+```powershell
+# Copy environment template & set up virtual environment
 cp .env.example .env
 python -m venv .venv
-# activate .venv then:
-pip install -r requirements.txt
-python -m src.cli validate-env
+.\.venv\Scripts\Activate.ps1
 
-docker compose up -d postgres
