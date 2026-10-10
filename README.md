@@ -14,8 +14,9 @@ This repository supports Module 2: Pipeline Construction, Storage, and Orchestra
 
 ### Goal 1: Environment & Docker Setup
 ```powershell
-
 cp .env.example .env
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-
+pip install -r requirements.txt
+python -m src.cli validate-env
+docker compose up -d postgres
