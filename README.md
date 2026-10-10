@@ -21,3 +21,21 @@ pip install -r requirements.txt
 python -m src.cli validate-env
 docker compose up -d postgres
 
+### Goal 2: Modular ETL Pipeline Execution
+PowerShell
+python -m src.cli extract
+python -m src.cli transform
+python -m src.cli load
+python -m src.cli validate
+
+#### Goal 3: Storage Benchmarking & Partition Loading
+PowerShell
+python -m src.cli benchmark --repeats 5
+python -m src.cli load-partition --year 2026 --month 1
+
+
+###Goal 4: Airflow Workflow Orchestration
+PowerShell
+docker compose -f docker-compose.yml -f docker-compose.airflow.yml up airflow-init
+docker compose -f docker-compose.yml -f docker-compose.airflow.yml up -d airflow-webserver airflow-scheduler
+Airflow Web UI: http://localhost:8080 (Credentials: admin / admin)
