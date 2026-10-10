@@ -1,5 +1,25 @@
+# Environment files
 .env
-.venv/
+.env.local
+
+# Python / Virtual Environment
 __pycache__/
-data/raw/
-data/partitioned/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# IDE / OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Generated Data / Logs / SQLite DBs
+data/
+output/
+logs/
+*.log
+airflow.db
+airflow.sqlite
