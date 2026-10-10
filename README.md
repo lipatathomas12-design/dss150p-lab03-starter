@@ -14,7 +14,7 @@ This repository supports Module 2: Pipeline Construction, Storage, and Orchestra
 
 ### Goal 1: Environment & Docker Setup
 ```powershell
-# Copy environment template & set up virtual environment
+
 cp .env.example .env
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
