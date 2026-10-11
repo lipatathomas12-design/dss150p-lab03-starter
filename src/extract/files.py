@@ -1,27 +1,20 @@
-from pathlib import Path
+from __future__ import annotations
+
 import shutil
-from src.config import path_for
+
+from src.config import get_settings, new_run_id, normalize_run_id
+
+SOURCE_FILES = ["customers.csv", "products.json", "orders.csv"]
 
 
-def extract_sources(run_id: str) -> Path:
-    """Copy immutable source snapshots into a run-specific raw directory.
-
-    1. Create data/raw/run_id=<run_id>/.
-    2. Copy customers.csv, products.json, and orders.csv from data/source/.
-    3. Return the run-specific raw path.
-    4. Do not modify source files in place.
-    """
-    source_dir = path_for('source_dir')
-    raw_base = path_for('raw_dir')
-    
-    run_raw_dir = raw_base / f"run_id={run_id}"
-    run_raw_dir.mkdir(parents=True, exist_ok=True)
-  
-    source_files = ['customers.csv', 'products.json', 'orders.csv']
-    
-    for filename in source_files:
-        src_path = source_dir / filename
-        if src_path.exists():
-            shutil.copy2(src_path, run_raw_dir / filename)
-            
-    return run_raw_dir
+def extract_sources(run_id: str | None = None) -> str:
+    s = get_settings()
+    rid = new_run_id() if run_id in (None, "latest") else normalize_run_id(run_id)
+    dest = s.raw_dir / f"run_id={rid}"
+    dest.mkdir(parents=True, exist_ok=True)
+    for name in SOURCE_FILES:
+        src = s.source_dir / name
+        if not src.exists():
+            raise FileNotFoundError(f"Source file not found: {src}")
+        shutil.copy2(src, dest / name)  # byte-for-byte copy, source is never modified
+    return rid
