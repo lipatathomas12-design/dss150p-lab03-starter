@@ -1,0 +1,8 @@
+1. record_hash lets the load compare incoming business content with what is stored, so unchanged rows are skipped. It must exclude volatile audit fields: pipeline_run_id, processed_at_utc, staged_at_utc (and source_updated_at). Including them changes the hash every run.
+2. Raw preserves the exact source snapshot so any later bug in staging or curated can be diagnosed or reprocessed without asking the source again.
+3. A data-quality rejection is a bad record handled by rules and kept in quarantine with a reason. A system exception is a pipeline failure (missing file, DB down) that stops the stage and fails the task.
+4. Parquet is columnar, typed, compressed and supports column pruning and predicate pushdown; CSV must parse all text for every column.
+5. A DAG with all the logic is hard to test, review and reuse outside Airflow, mixes scheduling with business rules, and slows DAG parsing.
+6. A retry reruns a task. If the task is idempotent (UPSERT), the rerun is harmless. Without idempotency, a plain INSERT retried after a partial success would duplicate rows or double-count amounts.
+7. Too many partitions means many small files, slow metadata listing, poor compression and more overhead than I/O saved.
+8. For an API or database source, extract would pull data and write the same run-specific raw snapshot (for example JSON/Parquet), with incremental extraction by updated_at, pagination, retries and rate limits. Later stages stay unchanged.
