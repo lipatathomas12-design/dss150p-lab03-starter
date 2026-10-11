@@ -1,25 +1,13 @@
-# Environment files
 .env
-.env.local
-
-# Python / Virtual Environment
-__pycache__/
-*.py[cod]
-*$py.class
 .venv/
-venv/
-ENV/
-
-# IDE / OS files
-.idea/
-.vscode/
-.DS_Store
-Thumbs.db
-
-# Generated Data / Logs / SQLite DBs
-data/
-output/
+__pycache__/
+*.pyc
+.pytest_cache/
 logs/
-*.log
-airflow.db
-airflow.sqlite
+data/raw/
+data/staging/
+data/curated/
+data/quarantine/
+data/benchmarks/materialized/
+data/partitioned/
+.idea/

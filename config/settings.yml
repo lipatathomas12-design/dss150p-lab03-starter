@@ -1,4 +1,4 @@
-pipeline:
+paths:
   source_dir: data/source
   raw_dir: data/raw
   staging_dir: data/staging
@@ -6,13 +6,8 @@ pipeline:
   quarantine_dir: data/quarantine
   benchmark_dir: data/benchmarks
   partition_dir: data/partitioned
-  audit_timezone: UTC
-storage_benchmark:
-  repeats: 5
-  json_lines: true
-  filter_status: DELIVERED
-  partition_columns: [order_year, order_month]
-quality:
-  allowed_order_statuses: [PENDING, PAID, PACKED, SHIPPED, DELIVERED, CANCELLED]
+rules:
   min_quantity: 1
   max_quantity: 20
+  # CHECK docs/DATASET_GUIDE.md and data/source/orders.csv, then edit to match the real statuses
+  allowed_statuses: [PENDING, PAID, SHIPPED, DELIVERED, CANCELLED, RETURNED]
