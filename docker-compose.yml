@@ -4,15 +4,15 @@ services:
     container_name: dss150p-postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-dss150p}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
-      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-dss150p}
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./sql/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dss150p} -d dss150p"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dss150p} -d ${POSTGRES_DB:-dss150p}"]
       interval: 5s
       timeout: 5s
       retries: 20
