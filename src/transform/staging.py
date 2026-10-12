@@ -1,4 +1,4 @@
-"""Staging layer: typing, normalization, latest-version dedup, source-level validity checks."""
+﻿"""Staging layer: typing, normalization, latest-version dedup, source-level validity checks."""
 from __future__ import annotations
 
 import json
@@ -126,9 +126,9 @@ def build_staging(run_id: str) -> dict:
     raw_dir = s.raw_dir / f"run_id={run_id}"
     if not raw_dir.exists():
         raise FileNotFoundError(f"Raw snapshot not found: {raw_dir} (run extract first)")
-    raw_c = pd.read_csv(raw_dir / "customers.csv", dtype=str)
+    raw_c = pd.read_csv(raw_dir / "customers.csv", dtype=str, encoding="utf-8-sig")
     raw_p = _read_products_json(raw_dir / "products.json")
-    raw_o = pd.read_csv(raw_dir / "orders.csv", dtype=str)
+    raw_o = pd.read_csv(raw_dir / "orders.csv", dtype=str, encoding="utf-8-sig")
     for df in (raw_c, raw_o):
         df.columns = [c.strip() for c in df.columns]
 
